@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  margin: 0; /* Ensures the navbar has no margin */
+  width: 100%; /* Ensures the navbar fills the entire width */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#app {
+  padding: 20px;
+}
+
+.add-to-do-form {
+  margin-bottom: 20px;
+}
+
+.add-to-do-form input,
+.add-to-do-form select,
+.add-to-do-form button {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.to-do-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.to-do-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.to-do-title {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.to-do-description,
+.to-do-due-date,
+.to-do-priority {
+  margin: 5px 0;
+}
