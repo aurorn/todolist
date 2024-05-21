@@ -1,0 +1,24 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "To Do List for the Odin Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aurorn/todolist.git"
+  },
+  "author": "Samuel Cason",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aurorn/todolist/issues"
+  },
+  "homepage": "https://github.com/aurorn/todolist#readme",
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
