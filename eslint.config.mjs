@@ -19,6 +19,9 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
+        babelOptions: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+        },
         requireConfigFile: false,
       },
       globals: {

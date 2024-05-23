@@ -1,14 +1,38 @@
-import { createElement, appendChildren } from '../utils/dom';
-import { createToDoCard } from '../components/todoCard';
-import { showToDoModal } from './modals';
-import { saveProjectsToLocalStorage, loadProjectsFromLocalStorage } from '../utils/storage';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { ToDoCard } from '../components/todoCard';
+import { loadProjects, saveProjects } from '../utils/storage';
 
-export const projects = loadProjectsFromLocalStorage();
-let projectIndex;
+export const projects = loadProjects();
+
+export function renderProjectToDos(todos, projectIndex) {
+  const mainContent = document.getElementById('main-content');
+  let toDoContainer = mainContent.querySelector('.to-do-container');
+
+  if (!toDoContainer) {
+    toDoContainer = document.createElement('div');
+    toDoContainer.className = 'to-do-container';
+    mainContent.appendChild(toDoContainer);
+  }
+
+  renderToDos(toDoContainer, todos, projectIndex);
+}
+
+function renderToDos(container, todos, projectIndex) {
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      {todos.map((toDo, toDoIndex) => (
+        <ToDoCard key={toDoIndex} toDo={toDo} projectIndex={projectIndex} toDoIndex={toDoIndex} />
+      ))}
+    </React.StrictMode>
+  );
+}
 
 export function renderProjects() {
   const projectList = document.querySelector('.project-list');
   projectList.innerHTML = '';
+
   projects.forEach((project, index) => {
     const projectItem = document.createElement('li');
     projectItem.textContent = project.name;
@@ -19,63 +43,28 @@ export function renderProjects() {
   });
 }
 
-export function renderProjectContent(index) {
-  projectIndex = index;
+export function renderProjectContent(projectIndex) {
   const mainContent = document.getElementById('main-content');
   mainContent.innerHTML = '';
 
   const project = projects[projectIndex];
+  const projectTitle = document.createElement('h2');
+  projectTitle.className = 'project-title';
+  projectTitle.textContent = project.name;
+  mainContent.appendChild(projectTitle);
 
-  const projectHeader = createElement('div', 'project-header');
-  const projectTitle = createElement('h2', 'project-title', { textContent: project.name });
+  const addToDoButton = document.createElement('button');
+  addToDoButton.className = 'add-to-do-button';
+  addToDoButton.textContent = 'Add Task';
+  addToDoButton.addEventListener('click', () => showToDoModal(projectIndex));
+  mainContent.appendChild(addToDoButton);
 
-  const addToDoButton = createElement('button', 'add-to-do-button', { textContent: 'Add Task' });
-  addToDoButton.addEventListener('click', showToDoModal);
-
-  appendChildren(projectHeader, projectTitle, addToDoButton);
-  mainContent.appendChild(projectHeader);
-
-  const toDoContainer = createElement('div', 'to-do-container');
-  mainContent.appendChild(toDoContainer);
-  renderProjectToDos(toDoContainer, project.todos);
+  renderProjectToDos(project.todos, projectIndex);
 }
 
-function renderProjectToDos(container, todos) {
-  container.innerHTML = '';
-  todos.forEach((toDo, index) => {
-    const toDoCard = createToDoCard(toDo, projectIndex, index);
-    container.appendChild(toDoCard);
-  });
-}
-
-export function getProjectIndex() {
-  return projectIndex;
-}
-
-export function setProjectIndex(index) {
-  projectIndex = index;
-}
-
-export function addProject(project) {
-  projects.push(project);
-  saveProjectsToLocalStorage(projects);
-  renderProjects();
-}
-
-export function addToDoToProject(projectIndex, toDo) {
-  projects[projectIndex].todos.push(toDo);
-  saveProjectsToLocalStorage(projects);
-  renderProjectContent(projectIndex);
-}
-
-export function updateToDoInProject(projectIndex, toDoIndex, toDo) {
-  projects[projectIndex].todos[toDoIndex] = toDo;
-  saveProjectsToLocalStorage(projects);
-  renderProjectContent(projectIndex);
-}
-
-export function removeToDoFromProject(projectIndex, toDoIndex) {
-  projects[projectIndex].todos.splice(toDoIndex, 1);
-  saveProjectsToLocalStorage(projects);
-  renderProjectContent(projectIndex);
+function showToDoModal(projectIndex) {
+  const toDoModal = document.getElementById('to-do-modal');
+  const projectIndexInput = toDoModal.querySelector('#project-index');
+  projectIndexInput.value = projectIndex;
+  toDoModal.style.display = 'block';
 }

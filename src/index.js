@@ -1,4 +1,12 @@
 import './styles.css';
-import { initializeApp } from './modules/appInitialization';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
 
-document.addEventListener('DOMContentLoaded', initializeApp);
+const container = document.getElementById('app-root');
+const root = createRoot(container);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

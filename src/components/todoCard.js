@@ -1,80 +1,87 @@
-import { createElement, appendChildren } from '../utils/dom';
-import { deleteToDo } from '../modules/taskHandlers';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDrag } from 'react-dnd';
+import moment from 'moment';
+import Push from 'push.js';
+import Tagify from '@yaireo/tagify';
+import { deleteToDo, editToDoInProject } from '../modules/taskHandlers';
 
-export function createToDoCard(toDo, projectIndex, toDoIndex) {
-  const toDoCard = createElement('div', 'to-do-card');
-  const title = createElement('h2', 'to-do-title', { textContent: toDo.title });
-
-  const deleteButton = createElement('button', 'delete-button', { textContent: 'Delete' });
-
-  deleteButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    deleteToDo(projectIndex, toDoIndex);
+export function ToDoCard({ toDo, projectIndex, toDoIndex }) {
+  const [{ isDragging }, drag] = useDrag({
+    type: 'TODO',
+    item: { projectIndex, toDoIndex },
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
 
-  toDoCard.addEventListener('click', () => {
-    showToDoDetailsModal(toDo, projectIndex, toDoIndex);
-  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedToDo, setEditedToDo] = useState(toDo);
+  const inputRef = useRef(null);
 
-  appendChildren(toDoCard, title, deleteButton);
+  useEffect(() => {
+    new Tagify(inputRef.current);
 
-  return toDoCard;
-}
+    const dueDate = moment(toDo.dueDate);
+    const now = moment();
 
-function showToDoDetailsModal(toDo, projectIndex, toDoIndex) {
-  const modal = document.getElementById('to-do-details-modal');
-  const form = document.getElementById('to-do-details-form');
-  const titleInput = document.getElementById('to-do-details-title-input');
-  const descriptionInput = document.getElementById('to-do-details-description');
-  const dueDateInput = document.getElementById('to-do-details-due-date');
-  const priorityInput = document.getElementById('to-do-details-priority');
-  const editButton = document.getElementById('edit-button');
-
-  titleInput.value = toDo.title;
-  descriptionInput.value = toDo.description;
-  dueDateInput.value = toDo.dueDate;
-  priorityInput.value = toDo.priority;
-
-  modal.style.display = 'block';
-  setFormReadOnly(true);
-  editButton.addEventListener('click', () => {
-    setFormReadOnly(false);
-  });
-
-  const closeButton = modal.querySelector('.close-button');
-  closeButton.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
+    if (dueDate.isAfter(now) && dueDate.diff(now, 'days') <= 1) {
+      Push.create('Task Due Soon', {
+        body: `${toDo.title} is due soon!`,
+      });
     }
-  });
+  }, [toDo.dueDate, toDo.title]);
 
-  form.onsubmit = function(event) {
-    event.preventDefault();
-    const updatedToDo = {
-      title: titleInput.value,
-      description: descriptionInput.value,
-      dueDate: dueDateInput.value,
-      priority: priorityInput.value
-    };
-    editToDoInProject(projectIndex, toDoIndex, updatedToDo);
-    modal.style.display = 'none';
+  const handleSave = () => {
+    editToDoInProject(projectIndex, toDoIndex, editedToDo);
+    setIsEditing(false);
   };
-}
 
-function setFormReadOnly(isReadOnly) {
-  const formElements = document.querySelectorAll('#to-do-details-form input, #to-do-details-form textarea, #to-do-details-form select');
-  formElements.forEach(element => {
-    element.readOnly = isReadOnly;
-    element.disabled = isReadOnly;
-  });
-
-  const saveButton = document.querySelector('#to-do-details-form button[type="submit"]');
-  saveButton.style.display = isReadOnly ? 'none' : 'block';
-
-  const editButton = document.getElementById('edit-button');
-  editButton.style.display = isReadOnly ? 'block' : 'none';
+  return (
+    <div
+      ref={drag}
+      className={`to-do-card ${isDragging ? 'dragging' : ''}`}
+      onClick={() => !isEditing && setIsEditing(true)}
+    >
+      {isEditing ? (
+        <div>
+          <input
+            type="text"
+            value={editedToDo.title}
+            onChange={(e) =>
+              setEditedToDo({ ...editedToDo, title: e.target.value })
+            }
+          />
+          <textarea
+            value={editedToDo.description}
+            onChange={(e) =>
+              setEditedToDo({ ...editedToDo, description: e.target.value })
+            }
+          />
+          <input
+            ref={inputRef}
+            name="tags"
+            defaultValue={editedToDo.tags}
+            onChange={(e) =>
+              setEditedToDo({ ...editedToDo, tags: e.target.value })
+            }
+          />
+          <button onClick={handleSave}>Save</button>
+        </div>
+      ) : (
+        <div>
+          <h2 className="to-do-title">{toDo.title}</h2>
+          <p className="to-do-due-date">{moment(toDo.dueDate).fromNow()}</p>
+          <button
+            className="delete-button"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteToDo(projectIndex, toDoIndex);
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }

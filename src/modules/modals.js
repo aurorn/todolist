@@ -37,16 +37,12 @@ export function setupToDoModal() {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
+        <input type="hidden" id="project-index" name="project-index">
         <button type="submit">Add</button>
       </form>
     </div>
   `;
   document.body.appendChild(toDoModal);
-}
-
-export function showToDoModal() {
-  const toDoModal = document.getElementById('to-do-modal');
-  toDoModal.style.display = 'block';
 }
 
 export function setupModalCloseEvents() {

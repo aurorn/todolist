@@ -121,6 +121,10 @@ body {
   box-sizing: border-box;
 }
 
+.to-do-card.dragging {
+  opacity: 0.5;
+}
+
 .to-do-card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -143,6 +147,10 @@ body {
 
 .to-do-title {
   margin-bottom: 0.5rem;
+}
+
+.to-do-due-date {
+  margin: 5px 0;
 }
 
 /* Modal Styles */
