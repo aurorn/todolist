@@ -11,6 +11,16 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
+      {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
@@ -21,9 +31,7 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000,
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
 };

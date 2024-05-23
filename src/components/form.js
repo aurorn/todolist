@@ -1,4 +1,4 @@
-import { createElement, appendChildren } from '../utils/dom.js';
+import { createElement, appendChildren } from '../utils/dom';
 
 export function createForm() {
   const form = createElement('form', 'add-to-do-form');

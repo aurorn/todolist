@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode development",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --ext .js,.jsx --fix"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,19 @@
   },
   "homepage": "https://github.com/aurorn/todolist#readme",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-react": "^7.24.1",
     "@eslint/js": "^9.3.0",
+    "babel-loader": "^9.1.3",
     "css-loader": "^7.1.1",
     "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "globals": "^15.3.0",
     "html-webpack-plugin": "^5.6.0",
     "style-loader": "^4.0.0",
@@ -31,6 +40,17 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "core-js": "^3.37.1"
+    "axios": "^1.7.2",
+    "collapsible": "^1.0.1",
+    "core-js": "^3.37.1",
+    "framer-motion": "^11.2.6",
+    "fuse.js": "^7.0.0",
+    "gsap": "^3.12.5",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
+    "push.js": "^1.0.12",
+    "react-dnd": "^16.0.1",
+    "sortablejs": "^1.15.2",
+    "tagify": "^0.1.1"
   }
 }

@@ -1,3 +1,4 @@
+/* General Styles */
 * {
   margin: 0;
   padding: 0;
@@ -5,61 +6,230 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: center;
   background-color: #333;
   color: white;
   padding: 1rem;
-  margin: 0; /* Ensures the navbar has no margin */
-  width: 100%; /* Ensures the navbar fills the entire width */
+  width: 100%;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
 #app {
-  padding: 20px;
+  display: flex;
+  flex: 1;
 }
 
-.add-to-do-form {
-  margin-bottom: 20px;
-}
-
-.add-to-do-form input,
-.add-to-do-form select,
-.add-to-do-form button {
-  margin-right: 10px;
-  padding: 5px;
-}
-
-.to-do-container {
+.sidebar {
+  width: 200px;
+  background-color: #444;
+  color: white;
+  padding: 1rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+.sidebar button {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background-color: #666;
+}
+
+.project-list {
+  list-style: none;
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.project-list li {
+  padding: 0.5rem 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.project-list li:hover {
+  background-color: #555;
+}
+
+#main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Project Header */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.add-to-do-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.add-to-do-button:hover {
+  background-color: #555;
+}
+
+/* To-Do Container */
+.to-do-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* To-Do Card */
 .to-do-card {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
-  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.to-do-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 0.8em;
+}
+
+.delete-button:hover {
+  background-color: #ccc;
 }
 
 .to-do-title {
-  margin: 0;
-  font-size: 1.2em;
+  margin-bottom: 0.5rem;
 }
 
-.to-do-description,
-.to-do-due-date,
-.to-do-priority {
-  margin: 5px 0;
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin-top: 10px;
+}
+
+form input,
+form textarea,
+form select {
+  margin-top: 5px;
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form button[type="submit"] {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+form button[type="submit"]:hover {
+  background-color: #555;
+}
+
+#edit-button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#edit-button:hover {
+  background-color: #555;
 }
