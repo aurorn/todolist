@@ -12,5 +12,5 @@ export function createElement(tag, className = null, attributes = {}) {
 }
 
 export function appendChildren(parent, ...children) {
-  children.forEach(child => parent.appendChild(child));
+  children.forEach((child) => parent.appendChild(child));
 }

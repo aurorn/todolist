@@ -23,9 +23,14 @@ function renderToDos(container, todos, projectIndex) {
   root.render(
     <React.StrictMode>
       {todos.map((toDo, toDoIndex) => (
-        <ToDoCard key={toDoIndex} toDo={toDo} projectIndex={projectIndex} toDoIndex={toDoIndex} />
+        <ToDoCard
+          key={toDoIndex}
+          toDo={toDo}
+          projectIndex={projectIndex}
+          toDoIndex={toDoIndex}
+        />
       ))}
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
 

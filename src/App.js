@@ -29,7 +29,9 @@ const App = () => {
   };
 
   const deleteProject = (projectIndex) => {
-    const updatedProjects = projects.filter((_, index) => index !== projectIndex);
+    const updatedProjects = projects.filter(
+      (_, index) => index !== projectIndex,
+    );
     setProjects(updatedProjects);
     saveProjects(updatedProjects);
     if (selectedProjectIndex >= projectIndex && selectedProjectIndex > 0) {
@@ -38,8 +40,8 @@ const App = () => {
   };
 
   const renameProject = (index, newName) => {
-    const updatedProjects = projects.map((project, i) => 
-      i === index ? { ...project, name: newName } : project
+    const updatedProjects = projects.map((project, i) =>
+      i === index ? { ...project, name: newName } : project,
     );
     setProjects(updatedProjects);
     saveProjects(updatedProjects);

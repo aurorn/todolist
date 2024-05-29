@@ -1,12 +1,22 @@
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import { ItemTypes } from '../constants';
 import { Card, CardContent, Typography, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const ToDoCard = ({ id, title, description, dueDate, priority, onEdit, onDelete, moveCard }) => {
+const ToDoCard = ({
+  id,
+  title,
+  description,
+  dueDate,
+  priority,
+  onEdit,
+  onDelete,
+  moveCard,
+}) => {
   const [{ isDragging }, drag] = useDrag({
-    type: 'CARD',
+    type: ItemTypes.CARD,
     item: { id },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -14,7 +24,7 @@ const ToDoCard = ({ id, title, description, dueDate, priority, onEdit, onDelete,
   });
 
   const [, drop] = useDrop({
-    accept: 'CARD',
+    accept: ItemTypes.CARD,
     hover: (item) => {
       if (item.id !== id) {
         moveCard(item.id, id);
@@ -23,21 +33,18 @@ const ToDoCard = ({ id, title, description, dueDate, priority, onEdit, onDelete,
   });
 
   return (
-    <div ref={(node) => drag(drop(node))} style={{ opacity: isDragging ? 0.5 : 1 }}>
+    <div
+      ref={(node) => drag(drop(node))}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+    >
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="h2">
             {title}
           </Typography>
-          <Typography color="textSecondary">
-            {description}
-          </Typography>
-          <Typography color="textSecondary">
-            Due: {dueDate}
-          </Typography>
-          <Typography color="textSecondary">
-            Priority: {priority}
-          </Typography>
+          <Typography color="textSecondary">{description}</Typography>
+          <Typography color="textSecondary">Due: {dueDate}</Typography>
+          <Typography color="textSecondary">Priority: {priority}</Typography>
           <IconButton onClick={() => onEdit(id)} aria-label="edit">
             <EditIcon />
           </IconButton>

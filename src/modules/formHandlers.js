@@ -1,4 +1,8 @@
-import { renderProjects, renderProjectContent, projects } from './projectManager';
+import {
+  renderProjects,
+  renderProjectContent,
+  projects,
+} from './projectManager';
 import { saveProjects } from '../utils/storage';
 
 export function setupProjectFormHandler() {
@@ -26,9 +30,11 @@ export function setupToDoFormHandler() {
     const priority = e.target.elements['to-do-priority'].value;
     const projectIndex = parseInt(e.target.elements['project-index'].value, 10);
 
-
-    if (Number.isNaN(projectIndex) || projectIndex < 0 || projectIndex >= projects.length) {
-
+    if (
+      Number.isNaN(projectIndex) ||
+      projectIndex < 0 ||
+      projectIndex >= projects.length
+    ) {
       return;
     }
 

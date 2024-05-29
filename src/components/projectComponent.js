@@ -3,7 +3,9 @@ import { createToDoList } from './todoList';
 
 export function createProjectList(project) {
   const projectElement = createElement('div', 'project');
-  const projectTitle = createElement('h2', 'project-title', { textContent: project.name });
+  const projectTitle = createElement('h2', 'project-title', {
+    textContent: project.name,
+  });
 
   appendChildren(projectElement, projectTitle);
 

@@ -1,5 +1,9 @@
 import { renderProjects, projects } from './projectManager';
-import { setupProjectModal, setupToDoModal, setupModalCloseEvents } from './modals';
+import {
+  setupProjectModal,
+  setupToDoModal,
+  setupModalCloseEvents,
+} from './modals';
 import { setupProjectFormHandler, setupToDoFormHandler } from './formHandlers';
 
 export function initializeApp() {

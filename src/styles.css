@@ -83,16 +83,16 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background-color: #333; 
+  background-color: #333;
   border-radius: 4px;
   margin-bottom: 0.5rem;
-  position: relative; 
+  position: relative;
 }
 
 .project-name {
   flex-grow: 1;
   cursor: pointer;
-  color: white; 
+  color: white;
 }
 
 .project-actions {
@@ -103,7 +103,7 @@ body {
 
 .star-icon,
 .dropdown-toggle {
-  color: white; 
+  color: white;
   cursor: pointer;
   font-size: 1rem;
   margin-left: 0.5rem;
@@ -112,7 +112,7 @@ body {
 
 .star-icon:hover,
 .dropdown-toggle:hover {
-  color: darkorange; 
+  color: darkorange;
 }
 
 /* Dropdown Menu */
@@ -317,7 +317,7 @@ form select {
   box-sizing: border-box;
 }
 
-form button[type="submit"] {
+form button[type='submit'] {
   margin-top: 20px;
   padding: 10px;
   font-size: 1rem;
@@ -328,7 +328,7 @@ form button[type="submit"] {
   border-radius: 4px;
 }
 
-form button[type="submit"]:hover {
+form button[type='submit']:hover {
   background-color: #555;
 }
 

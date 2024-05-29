@@ -4,7 +4,9 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
 import babelParser from '@babel/eslint-parser';
+import prettierConfig from 'eslint-config-prettier';
 
 export default [
   {
@@ -34,9 +36,11 @@ export default [
       'react-hooks': reactHooksPlugin,
       'jsx-a11y': jsxA11yPlugin,
       import: importPlugin,
+      prettier: prettierPlugin,
     },
     rules: {
       ...airbnb.rules,
+      ...prettierConfig.rules,
       'react/react-in-jsx-scope': 'off',
       'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
       'react/prop-types': 'off',
@@ -65,6 +69,7 @@ export default [
       ],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      'prettier/prettier': 'error',
     },
     settings: {
       react: {

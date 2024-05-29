@@ -35,8 +35,6 @@ export function setupProjectModal() {
   });
 }
 
-
-
 export function setupToDoModal() {
   const toDoModal = document.createElement('div');
   toDoModal.id = 'to-do-modal';
@@ -83,7 +81,7 @@ export function setupModalCloseEvents() {
   });
 
   window.addEventListener('click', (event) => {
-    modals.forEach(modal => {
+    modals.forEach((modal) => {
       if (event.target === modal) {
         modal.style.display = 'none';
       }
