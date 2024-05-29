@@ -40,7 +40,7 @@ export default [
       'react/react-in-jsx-scope': 'off',
       'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
       'react/prop-types': 'off',
-      'no-console': 'off',
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       indent: ['error', 2],
       quotes: ['error', 'single'],
       semi: ['error', 'always'],

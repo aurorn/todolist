@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { ToDoCard } from '../components/todoCard';
+import ToDoCard from '../components/todoCard';
 import { loadProjects, saveProjects } from '../utils/storage';
 
 export const projects = loadProjects();

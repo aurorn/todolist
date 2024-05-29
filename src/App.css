@@ -1,0 +1,13 @@
+.App {
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.App h1 {
+  margin-bottom: 20px;
+}
+

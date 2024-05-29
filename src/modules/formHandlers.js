@@ -11,6 +11,7 @@ export function setupProjectFormHandler() {
     saveProjects(projects);
     renderProjects();
     projectForm.reset();
+    document.getElementById('project-modal').style.display = 'none';
   });
 }
 
@@ -23,12 +24,19 @@ export function setupToDoFormHandler() {
     const description = e.target.elements['to-do-description'].value;
     const dueDate = e.target.elements['to-do-due-date'].value;
     const priority = e.target.elements['to-do-priority'].value;
-    const projectIndex = e.target.elements['project-index'].value;
+    const projectIndex = parseInt(e.target.elements['project-index'].value, 10);
+
+
+    if (Number.isNaN(projectIndex) || projectIndex < 0 || projectIndex >= projects.length) {
+
+      return;
+    }
 
     const newToDo = { title, description, dueDate, priority };
     projects[projectIndex].todos.push(newToDo);
     saveProjects(projects);
     renderProjectContent(projectIndex);
     toDoForm.reset();
+    document.getElementById('to-do-modal').style.display = 'none';
   });
 }

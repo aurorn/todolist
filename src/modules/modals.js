@@ -14,11 +14,28 @@ export function setupProjectModal() {
   `;
   document.body.appendChild(projectModal);
 
-  const addProjectButton = document.getElementById('add-project-button');
-  addProjectButton.addEventListener('click', () => {
-    projectModal.style.display = 'block';
+  const closeButton = projectModal.querySelector('.close-button');
+  closeButton.addEventListener('click', () => {
+    projectModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target === projectModal) {
+      projectModal.style.display = 'none';
+    }
+  });
+
+  const projectForm = projectModal.querySelector('#project-form');
+  projectForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const projectName = event.target['project-name'].value;
+    const project = { name: projectName, todos: [] };
+    addProject(project);
+    projectModal.style.display = 'none';
   });
 }
+
+
 
 export function setupToDoModal() {
   const toDoModal = document.createElement('div');
@@ -43,8 +60,18 @@ export function setupToDoModal() {
     </div>
   `;
   document.body.appendChild(toDoModal);
-}
 
+  const closeButton = toDoModal.querySelector('.close-button');
+  closeButton.addEventListener('click', () => {
+    toDoModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target === toDoModal) {
+      toDoModal.style.display = 'none';
+    }
+  });
+}
 export function setupModalCloseEvents() {
   const modals = document.querySelectorAll('.modal');
   const closeButtons = document.querySelectorAll('.close-button');
